@@ -1,4 +1,4 @@
-node {
+node('master') {
     
     def mavenHome = tool name:'3.9.10';
     
@@ -10,19 +10,19 @@ node {
         sh "${mavenHome}/bin/mvn clean install"
     }
     
-     stage('SonarCheck'){
-        sh "${mavenHome}/bin/mvn sonar:sonar"
-    }
+    //  stage('SonarCheck'){
+    //     sh "${mavenHome}/bin/mvn sonar:sonar"
+    // }
     
-     stage('NexoRepo'){
-        sh "${mavenHome}/bin/mvn clean deploy"
-    }
+    //  stage('NexoRepo'){
+    //     sh "${mavenHome}/bin/mvn clean deploy"
+    // }
     
-    stage('DeployAppIntoTomcat'){
-        sshagent(['f92e990a-0a44-4e98-9cc5-934e32168cdc']) {
-            sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.60.209.146:/opt/apache-tomcat-9.0.107/webapps/"
-        }
-    }
+    // stage('DeployAppIntoTomcat'){
+    //     sshagent(['f92e990a-0a44-4e98-9cc5-934e32168cdc']) {
+    //         sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.60.209.146:/opt/apache-tomcat-9.0.107/webapps/"
+    //     }
+    // }
     
     
     
